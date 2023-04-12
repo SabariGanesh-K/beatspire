@@ -1,10 +1,10 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { initializeApp } from "firebase/app";
 export const FirebaseConfig = createContext();
 
 export const FirebaseProvider = ({ children }) => {
     const firebaseBackendConfig = {
-        apiKey: "AIzaSyDf5kmh-9jsZAJ8ium3YUoDxsLzICfpFc0",
+        apiKey: process.env.REACT_APP_APIKEY ,
         authDomain: "beatspire.firebaseapp.com",
         projectId: "beatspire",
         storageBucket: "beatspire.appspot.com",
@@ -15,6 +15,11 @@ export const FirebaseProvider = ({ children }) => {
       
       // Initialize Firebase
       const app = initializeApp(firebaseBackendConfig);
+useEffect(() => {
+  console.log(firebaseBackendConfig.apiKey)
+
+ 
+}, [])
 
     return (
         <FirebaseConfig.Provider value={{}}>{children}</FirebaseConfig.Provider>
