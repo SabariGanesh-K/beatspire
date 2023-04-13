@@ -4,10 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { FirebaseProvider } from './BackendConfig/FirebaseConfig';
 import { BlockchainProvider } from './BackendConfig/BlockchainConfig';
 import { Main } from './Pages/main';
-
+import './index.css'
 function App() {
   return (
     <div className="App">
+      
       <BrowserRouter>
       <FirebaseProvider>
         <BlockchainProvider>
