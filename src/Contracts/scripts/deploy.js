@@ -13,8 +13,8 @@ async function main() {
 
   const lockedAmount = hre.ethers.utils.parseEther("1");
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const Lock = await hre.ethers.getContractFactory("NFTMarketplace");
+  const lock = await Lock.deploy();
 
   await lock.deployed();
 

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Web3Modal from 'web3modal';
-import { ethers } from 'ethers';
+import  * as eth  from 'ethers';
+import contr from '../Contracts/artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
 import axios from 'axios';
-import { MarketAddress, MarketAddressABI } from './constants';
+
 import { NFTStorage, Blob } from 'nft.storage'
 const NFT_STORAGE_TOKEN = process.env.REACT_APP_PUBLIC_NFT_STORAGE_TOKEN
 const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
-
-const fetchContract = (signerOrProvider) => new ethers.Contract(MarketAddress, MarketAddressABI, signerOrProvider);
+const MarketAddress = "0x225ED28BB549016B126129B09aF9AD9AfFE65FE2";
+const MarketAddressABI=contr.abi;
+const fetchContract = (signerOrProvider) => new eth.Contract(MarketAddress, MarketAddressABI, signerOrProvider);
 
 export const BlockchainConfig = React.createContext();
 
-export const NFTProvider = ({ children }) => {
+export const BlockchainProvider = ({ children }) => {
   const nftCurrency = 'MATIC';
   const [currentAccount, setCurrentAccount] = useState('');
 
@@ -63,25 +65,25 @@ export const NFTProvider = ({ children }) => {
       const metadata = new Blob([data]);
       const cid = await client.storeBlob(metadata);
       const url = "https://ipfs.io/ipfs/" + cid;
-
+      console.log(url);
       await createSale(url, price);
 
     
     } catch (error) {
-      console.log('Error uploading to create nft');
+      console.log('Error uploading to create nft',error);
     }
   };
 
   const createSale = async (url, formInputPrice, isReselling, id) => {
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+    const provider = new eth.providers.Web3Provider(connection);
+    const signer = await provider.getSigner();
 
-    const price = ethers.utils.parseUnits(formInputPrice, 'ether');
+    const price = eth.utils.parseUnits(formInputPrice, 'ether');
     const contract = fetchContract(signer);
     const listingPrice = await contract.getListingPrice();
-
+    console.log("hee",listingPrice)
     const transaction = !isReselling
       ? await contract.createToken(url, price, { value: listingPrice.toString() })
       : await contract.resellToken(id, price, { value: listingPrice.toString() });
@@ -90,7 +92,7 @@ export const NFTProvider = ({ children }) => {
 
   const fetchNFTs = async (setLoading) => {
     setLoading(true)
-    const provider = new ethers.providers.AlchemyProvider('maticmum', process.env.REACT_APP_PUBLIC_ALCHEMY_KEY);
+    const provider = new eth.providers.AlchemyProvider('maticmum', process.env.REACT_APP_PUBLIC_ALCHEMY_KEY);
 
     const contract = fetchContract(provider);
 
@@ -100,7 +102,7 @@ export const NFTProvider = ({ children }) => {
       async ({ tokenId, seller, owner, price: unformattedPrice }) => {
         const tokenURI = await contract.tokenURI(tokenId);
         const { data: { image, name, description } } = await axios.get(tokenURI);
-        const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+        const price = eth.utils.formatUnits(unformattedPrice.toString(), 'ether');
         
         image.replace("https:ipfs.io","https://infura-ipfs.io")
         console.log(image)
@@ -123,8 +125,8 @@ export const NFTProvider = ({ children }) => {
   const fetchMyNFTsOrListedNFTs = async (type) => {
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+    const provider = new eth.providers.Web3Provider(connection);
+    const signer =await provider.getSigner();
 
     const contract = fetchContract(signer);
 
@@ -136,7 +138,7 @@ export const NFTProvider = ({ children }) => {
       async ({ tokenId, seller, owner, price: unformattedPrice }) => {
         const tokenURI = await contract.tokenURI(tokenId);
         const { data: { image, name, description } } = await axios.get(tokenURI);
-        const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+        const price = eth.utils.formatUnits(unformattedPrice.toString(), 'ether');
 
         return {
           price,
@@ -157,12 +159,12 @@ export const NFTProvider = ({ children }) => {
   const buyNFT = async (nft) => {
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+    const provider = new eth.providers.Web3Provider(connection);
+    const signer =await provider.getSigner();
 
     const contract = fetchContract(signer);
 
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
+    const price = eth.utils.parseUnits(nft.price.toString(), 'ether');
 
     const transaction = await contract.createMarketSale(nft.tokenId, { value: price });
 

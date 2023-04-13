@@ -3,9 +3,11 @@ import React, { useState, useMemo, useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 
-import { Button, Input } from '../components';
-
+import Button from '../Actors/components/Button'
+import Input from '../Actors/components/Input'
+import '../../home.module.css'
 import { BlockchainConfig } from '../../BackendConfig/BlockchainConfig';
+import Navbar from '../Actors/NavBar';
 
 const CreateNFT = () => {
   const [fileUrl, setFileUrl] = useState('');
@@ -15,6 +17,7 @@ const CreateNFT = () => {
     name: '',
     description: '',
   });
+
   const { uploadToIPFS, createNFT } = useContext(BlockchainConfig);
  
   const onDrop = useCallback(async (acceptedFile) => {
@@ -46,8 +49,10 @@ const CreateNFT = () => {
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
+        <Navbar/>
+        <div className='bg-red'>Hi</div>
       <div className="w-3/5 md:w-full">
-        <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 sm:mb-4">
+        <h1 className="font-poppins  dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 sm:mb-4">
           Create New NFT
         </h1>
         <div className="mt-16">
