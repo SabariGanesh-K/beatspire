@@ -40,6 +40,15 @@ useEffect(() => {
   getArtistDataFromDB()
   }, [currentAccount,db])
 
+  const getMoodDatas = async(mood) =>{
+    let l=[];
+    const ref = collection(db,mood)
+    const data = await getDocs(ref) 
+    data.docs.forEach((item)=>{
+      l.push(item.data().tokenURI)
+    })
+    return l;
+  }
 
   const addArtistData = async(name,mail,audience,spotify,twitter) =>{
    await setDoc(doc(db,"artists",currentAccount),{
@@ -48,15 +57,23 @@ useEffect(() => {
     audience:audience,
     spotify:spotify,
     twitter:twitter,
-    wallet:currentAccount.toLower()
+    wallet:currentAccount.toString().toLower()
    });
     
   }
 
+  // const uploadArtOffChain = async(tokenURI,mood1,mood2,mood3) =>{
+  //   await addDoc(collection(db,mood1),{tokenURI:tokenURI})
+  //   await addDoc(collection(db,mood2),{tokenURI:tokenURI})
+  //   await addDoc(collection(db,mood3),{tokenURI:tokenURI})
+
+  // }
+  
+
 
 
     return (
-        <FirebaseConfig.Provider value={{artistData,userLoading,addArtistData}}>{children}</FirebaseConfig.Provider>
+        <FirebaseConfig.Provider value={{artistData,userLoading,getMoodDatas,addArtistData}}>{children}</FirebaseConfig.Provider>
     )
 
 }

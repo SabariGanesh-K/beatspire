@@ -12,10 +12,14 @@ import Navbar from '../Actors/NavBar';
 const CreateNFT = () => {
   const [fileUrl, setFileUrl] = useState('');
 
+
   const [formInput, setFormInput] = useState({
     price: '',
     name: '',
     description: '',
+    mood1:'happy',
+    mood2:'sad',
+    mood3:'angry'
   });
 
   const { uploadToIPFS, createNFT } = useContext(BlockchainConfig);
@@ -105,6 +109,24 @@ const CreateNFT = () => {
           title="Price"
           placeholder="Enter Price"
           handleClick={(e) => setFormInput({ ...formInput, price: e.target.value })}
+        />
+             <Input
+          inputType="textarea"
+          title=" Mood #1"
+          placeholder="Mood #1"
+          handleClick={(e) => setFormInput({ ...formInput, mood1: e.target.value })}
+        />
+             <Input
+          inputType="textarea"
+          title=" Mood #2"
+          placeholder="Mood #2"
+          handleClick={(e) => setFormInput({ ...formInput, mood2: e.target.value })}
+        />
+             <Input
+          inputType="textarea"
+          title=" Mood #3"
+          placeholder="Mood #3"
+          handleClick={(e) => setFormInput({ ...formInput, mood3: e.target.value })}
         />
         <div className="mt-7 w-full flex justify-end">
           <Button

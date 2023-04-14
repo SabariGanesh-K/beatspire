@@ -77,7 +77,7 @@ const Button = styled.button`
 
 const Navbar = () => {
   const { connectWallet, currentAccount } = useContext(BlockchainConfig);
-
+  
   return (
     <Section>
       <Container>

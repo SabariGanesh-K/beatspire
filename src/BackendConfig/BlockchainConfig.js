@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Web3Modal from 'web3modal';
 import  * as eth  from 'ethers';
 import contr from '../Contracts/artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
 import axios from 'axios';
 
 import { NFTStorage, Blob } from 'nft.storage'
+import { FirebaseConfig } from './FirebaseConfig';
 const NFT_STORAGE_TOKEN = process.env.REACT_APP_PUBLIC_NFT_STORAGE_TOKEN
 const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 const MarketAddress = process.env.REACT_APP_NFTMARKETPLACE_CONTRACT ;
@@ -16,7 +17,7 @@ export const BlockchainConfig = React.createContext();
 export const BlockchainProvider = ({ children }) => {
   const nftCurrency = 'MATIC';
   const [currentAccount, setCurrentAccount] = useState('');
-
+  // const {uploadArtOffChain} = useContext(FirebaseConfig)
   const connectWallet = async () => {
     if (!window.ethereum) return alert('Please install MetaMask.');
 
@@ -55,7 +56,7 @@ export const BlockchainProvider = ({ children }) => {
   };
 
   const createNFT = async (formInput, fileUrl) => {
-    const { name, description, price } = formInput;
+    const { name, description, price,mood1,mood2,mood3 } = formInput;
     if (!name || !description || !fileUrl || !price) return;
     const data = JSON.stringify({
       name, description, image: fileUrl,
@@ -67,7 +68,7 @@ export const BlockchainProvider = ({ children }) => {
       const url = "https://ipfs.io/ipfs/" + cid;
       console.log(url);
       await createSale(url, price);
-
+      // await uploadArtOffChain(url,mood1,mood2,mood3)
     
     } catch (error) {
       console.log('Error uploading to create nft',error);
@@ -88,6 +89,8 @@ export const BlockchainProvider = ({ children }) => {
       ? await contract.createToken(url, price, { value: listingPrice.toString() })
       : await contract.resellToken(id, price, { value: listingPrice.toString() });
     await transaction.wait();
+    console.log(transaction)
+    
   };
 
   const fetchNFTs = async (setLoading) => {
