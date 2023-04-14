@@ -7,7 +7,7 @@ import axios from 'axios';
 import { NFTStorage, Blob } from 'nft.storage'
 const NFT_STORAGE_TOKEN = process.env.REACT_APP_PUBLIC_NFT_STORAGE_TOKEN
 const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
-const MarketAddress = "0x225ED28BB549016B126129B09aF9AD9AfFE65FE2";
+const MarketAddress = process.env.REACT_APP_NFTMARKETPLACE_CONTRACT ;
 const MarketAddressABI=contr.abi;
 const fetchContract = (signerOrProvider) => new eth.Contract(MarketAddress, MarketAddressABI, signerOrProvider);
 
