@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import ReactAudioPlayer from 'react-audio-player';
 import { BlockchainConfig } from '../../BackendConfig/BlockchainConfig';
 import { FirebaseConfig } from '../../BackendConfig/FirebaseConfig';
 import Navbar from '../Actors/NavBar';
@@ -13,19 +14,30 @@ const ListedNFTs = () => {
   const [filteredNfts, setFilteredNfts] = useState(nfts)
 
   const filterNfts=async(mood) =>{
+    setIsLoading(true)
     let dat = await getMoodDatas(mood)
     let temp = [];
+    console.log("dd",dat)
     nfts.forEach((item)=>{
-      if(item.tokenURI in dat){
-        temp.push(item)
+      console.log("wer",item.image)
+      for (let i=0;i<dat.length;i++){
+        console.log("dddweeeed",item.image===dat[i])
+        if(item.image===dat[i]){
+          temp.push(item)
+          console.log("yes")
+        }
       }
+      
     })
     setFilteredNfts(temp);
+    setIsLoading(false)
+
   }
   useEffect(() => {
     fetchMyNFTsOrListedNFTs('fetchItemsListed')
       .then((items) => {
         setNfts(items);
+        setFilteredNfts(items)
         setIsLoading(false);
       });
   }, []);
@@ -49,6 +61,10 @@ const ListedNFTs = () => {
   return (
     <>
     <Navbar/>
+    <ReactAudioPlayer
+ src = "https://ipfs.io/ipfs/bafybeid5gljppqk6ti3eb2x7mbvgjghafe4xyugabapb7yyiis2bnhnkzq/y2mate.com%20-%20Sickick%20Infected%20Ringtone%20%20New%20Ringtone%202022%20%20Attitude%20BGM%20Ringtone%20%20Ringtones%20Addict%20.mp3"
+  autoPlay
+/>
     <div className="flex justify-center sm:px-4 p-12 min-h-screen">
       <div className="w-full minmd:w-4/5">
         <button onClick={()=>filterNfts("happy")}>Filter happy</button>

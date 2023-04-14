@@ -57,23 +57,23 @@ useEffect(() => {
     audience:audience,
     spotify:spotify,
     twitter:twitter,
-    wallet:currentAccount.toString().toLower()
+    wallet:currentAccount.toLowerCase()
    });
     
   }
 
-  // const uploadArtOffChain = async(tokenURI,mood1,mood2,mood3) =>{
-  //   await addDoc(collection(db,mood1),{tokenURI:tokenURI})
-  //   await addDoc(collection(db,mood2),{tokenURI:tokenURI})
-  //   await addDoc(collection(db,mood3),{tokenURI:tokenURI})
+  const uploadArtOffChain = async(tokenURI,mood1,mood2,mood3) =>{
+    await addDoc(collection(db,mood1),{tokenURI:tokenURI})
+    await addDoc(collection(db,mood2),{tokenURI:tokenURI})
+    await addDoc(collection(db,mood3),{tokenURI:tokenURI})
 
-  // }
+  }
   
 
 
 
     return (
-        <FirebaseConfig.Provider value={{artistData,userLoading,getMoodDatas,addArtistData}}>{children}</FirebaseConfig.Provider>
+        <FirebaseConfig.Provider value={{artistData,userLoading,getMoodDatas,uploadArtOffChain,addArtistData}}>{children}</FirebaseConfig.Provider>
     )
 
 }

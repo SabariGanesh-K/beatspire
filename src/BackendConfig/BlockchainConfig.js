@@ -61,11 +61,11 @@ export const BlockchainProvider = ({ children }) => {
     const data = JSON.stringify({
       name, description, image: fileUrl,
     });
-
+    let url=""
     try {
       const metadata = new Blob([data]);
       const cid = await client.storeBlob(metadata);
-      const url = "https://ipfs.io/ipfs/" + cid;
+       url = "https://ipfs.io/ipfs/" + cid;
       console.log(url);
       await createSale(url, price);
       // await uploadArtOffChain(url,mood1,mood2,mood3)
@@ -73,6 +73,7 @@ export const BlockchainProvider = ({ children }) => {
     } catch (error) {
       console.log('Error uploading to create nft',error);
     }
+    return fileUrl;
   };
 
   const createSale = async (url, formInputPrice, isReselling, id) => {

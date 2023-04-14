@@ -8,6 +8,7 @@ import Input from '../Actors/components/Input'
 import '../../home.module.css'
 import { BlockchainConfig } from '../../BackendConfig/BlockchainConfig';
 import Navbar from '../Actors/NavBar';
+import { FirebaseConfig } from '../../BackendConfig/FirebaseConfig';
 
 const CreateNFT = () => {
   const [fileUrl, setFileUrl] = useState('');
@@ -23,11 +24,18 @@ const CreateNFT = () => {
   });
 
   const { uploadToIPFS, createNFT } = useContext(BlockchainConfig);
- 
+  const {uploadArtOffChain} = useContext(FirebaseConfig)
+  const [uploadLoading, setUploadLoading] = useState(false)
   const onDrop = useCallback(async (acceptedFile) => {
-    const url = await uploadToIPFS(acceptedFile[0]);
-    console.log({ url });
-    setFileUrl(url.replace("ipfs://","https://ipfs.io/ipfs/"));
+    if(acceptedFile[0].type==="video/webm"){
+      const url = await uploadToIPFS(acceptedFile[0]);
+      console.log({ url });
+      setFileUrl(url.replace("ipfs://","https://ipfs.io/ipfs/"));
+    }
+    else{
+      alert("only audio file")
+    }
+   
   }, []);
 
   const {
@@ -41,6 +49,13 @@ const CreateNFT = () => {
     accept: 'image/*',
     maxSize: 50000000,
   });
+  const handleCreation = async() =>{
+setUploadLoading(true)
+    const urlReturned = await createNFT(formInput, fileUrl)
+    await uploadArtOffChain(urlReturned,formInput.mood1,formInput.mood2,formInput.mood3)
+setUploadLoading(false)
+ 
+  }
 
   const fileStyle = useMemo(
     () => `dark:bg-nft-black-1 bg-white border dark:border-white border-nft-gray-2 flex flex-col items-center p-5 rounded-sm border-dashed 
@@ -54,13 +69,18 @@ const CreateNFT = () => {
   return (
     <>
         <Navbar/>
-
+       
+       
     <div className="flex justify-center sm:px-4 p-12">
         <div className='bg-red'>Hi</div>
       <div className="w-3/5 md:w-full">
         <h1 className="font-poppins  dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 sm:mb-4">
           Create New NFT
         </h1>
+        {/* <audio controls>
+      <source   src = "https://ipfs.io/ipfs/bafybeid5gljppqk6ti3eb2x7mbvgjghafe4xyugabapb7yyiis2bnhnkzq/y2mate.com%20-%20Sickick%20Infected%20Ringtone%20%20New%20Ringtone%202022%20%20Attitude%20BGM%20Ringtone%20%20Ringtones%20Addict%20.mp3"  type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio> */}
         <div className="mt-16">
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
             Upload files
@@ -70,7 +90,7 @@ const CreateNFT = () => {
               <input {...getInputProps()} />
               <div className="flexCenter flex-col text-center">
                 <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
-                  JPG, GIF, SVG, WEBM Mx 100mb.
+                  Audio files
                 </p>
                 <div className="my-12 w-full flex justify-center">
              
@@ -129,11 +149,11 @@ const CreateNFT = () => {
           handleClick={(e) => setFormInput({ ...formInput, mood3: e.target.value })}
         />
         <div className="mt-7 w-full flex justify-end">
-          <Button
+      {uploadLoading? <div>Uploading.. </div>:    <Button
             btnName="Create NFT"
             className="rounded-xl"
-            handleClick={() => createNFT(formInput, fileUrl)}
-          />
+            handleClick={handleCreation }
+          />}
         </div>
       </div>
     </div>
