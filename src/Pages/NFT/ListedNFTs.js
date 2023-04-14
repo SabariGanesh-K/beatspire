@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BlockchainConfig } from '../../BackendConfig/BlockchainConfig';
+import Navbar from '../Actors/NavBar';
 import Loader from './components/Loader';
 import NFTCard from './components/NFTCard';
 
@@ -33,6 +34,8 @@ const ListedNFTs = () => {
   // }
 
   return (
+    <>
+    <Navbar/>
     <div className="flex justify-center sm:px-4 p-12 min-h-screen">
       <div className="w-full minmd:w-4/5">
         <div className="mt-4">
@@ -45,6 +48,7 @@ const ListedNFTs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

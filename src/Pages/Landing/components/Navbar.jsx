@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { BlockchainConfig } from '../../../BackendConfig/BlockchainConfig'
 
 const Section = styled.div`
 display: flex;
@@ -75,6 +76,8 @@ const Button = styled.button`
 `
 
 const Navbar = () => {
+  const { connectWallet, currentAccount } = useContext(BlockchainConfig);
+
   return (
     <Section>
       <Container>
@@ -89,7 +92,16 @@ const Navbar = () => {
           </List>
         </Links>
         <Icons>
-          <Button>Log-in</Button>
+       { currentAccount ? (
+    <div className="flexCenter">
+      <Button>Connected</Button>
+    </div>
+  ) : (
+    <Button
+    
+      handleClick={connectWallet}
+    />
+  )}
           <Button>Explore</Button>
         </Icons>
       </Container>

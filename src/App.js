@@ -10,11 +10,13 @@ function App() {
     <div className="App">
       
       <BrowserRouter>
-      <FirebaseProvider>
+
         <BlockchainProvider>
+        <FirebaseProvider>
           <Main/>
+          </FirebaseProvider>
         </BlockchainProvider>
-      </FirebaseProvider>
+
       </BrowserRouter>
     </div>
   );
