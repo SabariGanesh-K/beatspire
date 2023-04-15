@@ -1,32 +1,83 @@
-
 import React, { useContext, useState } from "react";
 import { BlockchainConfig } from "../../BackendConfig/BlockchainConfig";
 import { FirebaseConfig } from "../../BackendConfig/FirebaseConfig";
 import Navbar from "../Actors/NavBar";
+import styled from "styled-components";
+
+const Section = styled.div`
+height: 100vh;
+scroll-snap-align: center;
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+box-sizing: border-box;
+background-color: #99FFE3;`
+
+const Container = styled.div`
+background-color: #156F65;
+font-family: 'Poppins', sans-serif;
+padding: 5rem;
+height: 80vh;
+display: flex;
+border-radius: 20px;
+justify-content: center;
+align-items: center;`
+
+const Container2 = styled.div`
+${'' /* height: 100vh; */}
+background-color: #99FFE3;
+font-family: 'Poppins', sans-serif;
+font-size:5rem;
+margin: 3rem;
+width: 100%;
+height: max-content;`
+
+const Span = styled.div`
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+background-color: #00C594;
+padding: 30px;
+border-radius: 20px;
+color: black;
+font-weight: bold;
+display: flex;
+justify-content: center;
+align-items: center;
+
+&:hover{
+  background-color: #260B41;
+  transition: 0.3s ease-in-out;
+  transform: scale(1.01);
+  box-shadow: 0 5px 10px 0 #1E4A3F;
+  color: #00FFBA;
+  cursor: pointer;
+}`
 export const ArtistProfile = () => {
-    const { artistData } = useContext(FirebaseConfig);
-    const { currentAccount } = useContext(BlockchainConfig);    
+  const { artistData } = useContext(FirebaseConfig);
+  const { currentAccount } = useContext(BlockchainConfig);
   return (
-    <div>
-        <Navbar/>
-    <div>ArtistProfile</div>
-{currentAccount? <>
-{(artistData)?<>
+    <>
+      <Navbar />
+      <Section>
+        <Container2 className="text-2xl font-extrabold">Artist  Profile</Container2>
+        {currentAccount ? <>
+          {(artistData) ? <>
 
-<div className="flex flex-col">
-    <span>Name: {artistData.name} </span>
-    <span>Mail: {artistData.mail} </span>
-    <span>wallet: {artistData.wallet} </span>
-    <span>audience: {artistData.audience} </span>
-    <span>Twitter: {artistData.twitter} </span>
+            <Container className="flex flex-col rounded-b-lg shadow-md">
+              <Span className="text-2xl m-5">Name: {artistData.name} </Span><br />
+              <Span className="text-2xl m-5">Mail: {artistData.mail} </Span><br />
+              <Span className="text-2xl m-5">wallet: <br />{artistData.wallet} </Span><br />
+              <Span className="text-2xl m-5">audience: {artistData.audience} </Span><br />
+              <Span className="text-2xl m-5">Twitter: {artistData.twitter} </Span>
 
-</div>
+            </Container>
 
-</>:  <div>Register as a artist to proceed</div> }
+          </> : <Span> Register as a artist to proceed </Span>}
 
 
-</>:<div>Connect your wallet to proceed</div>}
-    </div>
-
+        </> : <Span>Connect your wallet to proceed</Span>}
+      </Section>
+    </>
   )
 }
