@@ -7,7 +7,7 @@ import Button from '../Actors/components/Button'
 import Input from '../Actors/components/Input'
 import '../../home.module.css'
 import { BlockchainConfig } from '../../BackendConfig/BlockchainConfig';
-import Navbar from '../Actors/NavBar';
+import Navbar from '../Landing/components/Navbar';
 import { FirebaseConfig } from '../../BackendConfig/FirebaseConfig';
 
 const Body = styled.div`
@@ -56,7 +56,8 @@ const CreateNFT = () => {
   const { uploadArtOffChain } = useContext(FirebaseConfig)
   const [uploadLoading, setUploadLoading] = useState(false)
   const onDrop = useCallback(async (acceptedFile) => {
-    if (acceptedFile[0].type === "video/webm") {
+    console.log(acceptedFile[0].type)
+    if (acceptedFile[0].type === "video/webm" ||acceptedFile[0].type === "audio/mpeg") {
       const url = await uploadToIPFS(acceptedFile[0]);
       console.log({ url });
       setFileUrl(url.replace("ipfs://", "https://ipfs.io/ipfs/"));
@@ -82,7 +83,8 @@ const CreateNFT = () => {
     setUploadLoading(true)
     const urlReturned = await createNFT(formInput, fileUrl)
     await uploadArtOffChain(urlReturned, formInput.mood1, formInput.mood2, formInput.mood3)
-    setUploadLoading(false)
+    setUploadLoading(false) 
+    
 
   }
 
@@ -178,11 +180,11 @@ const CreateNFT = () => {
             handleClick={(e) => setFormInput({ ...formInput, mood3: e.target.value })}
           />
           <div className="mt-7 w-full flex justify-end">
-            {uploadLoading ? <div>Uploading.. </div> : <ButCom
+            {uploadLoading ? <div>Uploading.. </div> : <Button
               btnName="Create NFT"
               className="rounded-xl"
               handleClick={handleCreation}
-            >Create NFT</ButCom>}
+            >Create NFT</Button>}
           </div>
         </div>
       </Body>

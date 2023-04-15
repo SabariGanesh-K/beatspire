@@ -123,7 +123,7 @@ const TopArtists = () => {
     <Section>
       <Container>
         <Header>Top artists</Header>
-        <Button>See All</Button>
+        <a href='/market'>   <Button>See All</Button></a>
         <CardBoard>
           <Row>
             <Card><Img src='./ArtistCard1.png' /></Card>

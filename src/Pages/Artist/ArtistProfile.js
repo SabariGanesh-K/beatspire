@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import { BlockchainConfig } from "../../BackendConfig/BlockchainConfig";
 import { FirebaseConfig } from "../../BackendConfig/FirebaseConfig";
-import Navbar from "../Actors/NavBar";
+import Navbar from '../Landing/components/Navbar';
+
 import styled from "styled-components";
 
 const Section = styled.div`
-height: 100vh;
+// height: 100vh;
 scroll-snap-align: center;
 display: flex;
 justify-content: center;
@@ -55,14 +56,17 @@ align-items: center;
 }`
 export const ArtistProfile = () => {
   const { artistData } = useContext(FirebaseConfig);
-  const { currentAccount } = useContext(BlockchainConfig);
+  const { currentAccount,connectWallet } = useContext(BlockchainConfig);
   return (
     <>
       <Navbar />
       <Section>
         <Container2 className="text-2xl font-extrabold">Artist  Profile</Container2>
-        {currentAccount ? <>
-          {(artistData) ? <>
+        <br/><br/><br/>
+        <br/><br/><br/>
+        {(currentAccount ) ? <>
+          {(artistData.name) ? <>
+            <a href="/create"> <Span className="text-2xl m-5">+ Upload your NFT </Span></a><br />
 
             <Container className="flex flex-col rounded-b-lg shadow-md">
               <Span className="text-2xl m-5">Name: {artistData.name} </Span><br />
@@ -73,10 +77,10 @@ export const ArtistProfile = () => {
 
             </Container>
 
-          </> : <Span> Register as a artist to proceed </Span>}
+          </> : <a href = "regartist"> <Span> Register as a artist to proceed </Span></a>}
 
 
-        </> : <Span>Connect your wallet to proceed</Span>}
+        </> : <Span onClick={connectWallet}>Connect your wallet to proceed</Span>}
       </Section>
     </>
   )

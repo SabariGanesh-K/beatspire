@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { BlockchainConfig } from '../../../BackendConfig/BlockchainConfig'
-
 const Section = styled.div`
 display: flex;
 justify-content: center;
@@ -77,17 +76,17 @@ const Button = styled.button`
 
 const Navbar = () => {
   const { connectWallet, currentAccount } = useContext(BlockchainConfig);
-  
+
   return (
     <Section>
       <Container>
         <Links>
-          <Logo src="./beatspire-logo.svg" />
+        <a href='/home'>   <Logo src="./beatspire-logo.svg" /> </a>
           <List>
-            <ListItem>Home</ListItem>
-            <ListItem>Music</ListItem>
-            <ListItem>Artists</ListItem>
-            <ListItem>Collections</ListItem>
+        <a href='/home'>  <ListItem>Home</ListItem></a>  
+        <a href='/market'> <ListItem>Music</ListItem></a>
+        <a href='/artist'>   <ListItem>Artists</ListItem></a>
+        <a href='/market'>   <ListItem>Collections</ListItem></a>
             {/* <ListItem>Social Good</ListItem> */}
           </List>
         </Links>
@@ -100,7 +99,7 @@ const Navbar = () => {
     <Button
     
       handleClick={connectWallet}
-    />
+    >Connect Wallet</Button>
   )}
           <Button>Explore</Button>
         </Icons>

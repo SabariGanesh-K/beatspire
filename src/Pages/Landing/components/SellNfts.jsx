@@ -79,7 +79,7 @@ const SellNfts = () => {
                     <Header>Sell your
                         <br /> NFTs</Header>
                     <TagLine>Monetize your music and trade rare, one-of-a-kind <br /> NFTs on our secure music NFT marketplace</TagLine>
-                    <ButCon><Button>I'm An Artist</Button></ButCon>
+                    <ButCon> <a href = "/regartist"> <Button>I'm An Artist</Button></a></ButCon>
                 </Left>
                 <Right>
                     <Img src='./sellnftcard.svg' />

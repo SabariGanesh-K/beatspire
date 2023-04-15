@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import { BlockchainConfig } from '../../BackendConfig/BlockchainConfig';
 import { FirebaseConfig } from '../../BackendConfig/FirebaseConfig';
-import Navbar from '../Actors/NavBar';
+import Navbar from '../Landing/components/Navbar';
+
 import Loader from './components/Loader';
 import NFTCard from './components/NFTCard';
 
@@ -50,26 +51,27 @@ const ListedNFTs = () => {
     );
   }
 
-  // if (!isLoading && nfts.length === 0) {
-  //   return (
-  //     <div className="flexCenter sm:p-4 p-16 min-h-screen">
-  //       <h1 className="font-poppins dark:text-white text-nft-black-1 text-3xl font-extrabold">No NFTs Listed for Sale</h1>
-  //     </div>
-  //   );
-  // }
+
 
   return (
     <>
     <Navbar/>
-    <ReactAudioPlayer
- src = "https://ipfs.io/ipfs/bafybeid5gljppqk6ti3eb2x7mbvgjghafe4xyugabapb7yyiis2bnhnkzq/y2mate.com%20-%20Sickick%20Infected%20Ringtone%20%20New%20Ringtone%202022%20%20Attitude%20BGM%20Ringtone%20%20Ringtones%20Addict%20.mp3"
-  autoPlay
-/>
+ 
     <div className="flex justify-center sm:px-4 p-12 min-h-screen">
+  
       <div className="w-full minmd:w-4/5">
-        <button onClick={()=>filterNfts("happy")}>Filter happy</button>
+        <button className='bg-green-800 p-2 font-bold text-white rounded-xl mx-3' onClick={()=>filterNfts("happy")}> Happy 😀</button>
+        <button className='bg-green-800 p-2 font-bold text-white rounded-xl mx-3' onClick={()=>filterNfts("angry")}> Angry 😡</button>
+        <button className='bg-green-800 p-2 font-bold text-white rounded-xl mx-3' onClick={()=>filterNfts("sad")}> sad 😖</button>
+
+
         <div className="mt-4">
+        {(!isLoading && filteredNfts.length === 0) ? (<div className="flexCenter sm:p-4 p-16 ">
+        <h1 className="font-poppins dark:text-white text-nft-black-1 text-3xl font-extrabold">No NFTs Listed for Sale</h1>
+      </div>):
           <h2 className="font-poppins dark:text-white text-nft-black-1 text-2xl font-semibold mt-2 ml-4 sm:ml-2">NFTs listed for sale</h2>
+      }
+      
           <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
             {
               filteredNfts.map((nft) => <> <NFTCard key={nft.tokenId} nft={nft} /> </>)

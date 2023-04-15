@@ -84,7 +84,7 @@ const TopNfts = () => {
                 <Right>
                     <Header>Explore Top NFTs</Header>
                     <TagLine>Discover the most sought-after digital assets of the <br/> Moment with our curated selection of top NFTs.</TagLine>
-                    <ButCon><Button>See All</Button></ButCon>
+                    <ButCon><a href='/market'> <Button>See All</Button></a></ButCon>
                     
                 </Right>
             </Container>

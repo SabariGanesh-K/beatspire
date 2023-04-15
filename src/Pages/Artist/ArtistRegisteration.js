@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { BlockchainConfig } from "../../BackendConfig/BlockchainConfig";
 import { FirebaseConfig } from "../../BackendConfig/FirebaseConfig";
-import Navbar from "../Actors/NavBar";
+import Navbar from "../Landing/components/Navbar";
 import styled from "styled-components";
 
 const ButCon = styled.button`
@@ -53,9 +53,9 @@ background-color: #99FFE3;
 font-family: 'Poppins', sans-serif;
 font-size:5rem;
 margin: 3rem;
-width: 100vh;
-height: max-content;
-padding: 50px;
+// width: 100vh;
+// height: max-content;
+// padding: 50px;
 line-height: 1.05;`
 
 const Span = styled.div`
@@ -89,11 +89,16 @@ export const ArtistRegisteration = () => {
   const [twitter, setTwitter] = useState("");
 
   const [loading, setloading] = useState("");
-  const { addArtistData } = useContext(FirebaseConfig);
-  const { currentAccount } = useContext(BlockchainConfig);
+  const { addArtistData,artistData } = useContext(FirebaseConfig);
+  const { currentAccount,connectWallet } = useContext(BlockchainConfig);
   const handleSubmission = async () => {
     setloading(true);
     await addArtistData(name, mail, audience, spotify, twitter);
+    setName('')
+    setMail('')
+    setAudience(0)
+    setSpotify("")
+    setTwitter("")
     setloading(false);
   };
   console.log(currentAccount)
@@ -102,7 +107,7 @@ export const ArtistRegisteration = () => {
       <Navbar />
       <Section>
         <Container2 className="text-2xl font-extrabold">Artist Registeration</Container2>
-        {currentAccount ? (
+        {(currentAccount && !artistData.name ) ? (
           <Container>
             {" "}
             <Span className="text-2xl m-5">
@@ -154,7 +159,7 @@ export const ArtistRegisteration = () => {
               multiline
               variant="standard"
             /></Span>
-            {name && mail && audience && spotify && twitter ? (
+            {name && mail && audience && spotify && twitter &&!loading ? (
               <ButCom
                 className="bg-black text-white font-bold text-2xl"
                 onClick={handleSubmission}
@@ -164,13 +169,13 @@ export const ArtistRegisteration = () => {
             ) : (
               <ButCon
                 className="font-bold text-2xl cursor-not-allowed"
-                onClick={handleSubmission}
+                // onClick={handleSubmission}
               >
                 Submit
               </ButCon>
             )}
           </Container>
-        ) : <ButCom>Conect wallet to proceed</ButCom>}
+        ) : (artistData.name ?<a href = "/artist"> <ButCom>USER ALREADY REGISTERED</ButCom></a>: <ButCom onClick={connectWallet}>Connect wallet to proceed</ButCom>  )     }
       </Section>
     </>
   );

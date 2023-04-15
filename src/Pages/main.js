@@ -11,6 +11,8 @@ export const Main = () => {
     <div>
           <Routes>
             <Route path="/home" element={<Landing />} />
+            <Route path="/" element={<Landing />} />
+
           <Route path = "/create" element={<CreateNFT/>}/>
             <Route path = '/market' element = {<ListedNFTs/>}/>
             <Route path = '/regartist' element = {<ArtistRegisteration/>}/>
