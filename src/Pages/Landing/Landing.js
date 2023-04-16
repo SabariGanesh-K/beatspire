@@ -16,7 +16,7 @@ body{
 }`
 
 const Container = styled.div`
-height: 100vh;
+// height: 100vh;
 background-color: #000;
 scroll-snap-type: y mandatory;
 scroll-behavior: smooth;
@@ -33,8 +33,10 @@ const Landing = () => {
     <>
       <GlobalStyle />
       <Container>
-        <Navbar />
+      <Navbar />
+       
         <Hero />
+        
         <TopNfts />
         <SellNfts />
         <CreateNft />

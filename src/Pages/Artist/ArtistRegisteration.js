@@ -104,8 +104,9 @@ export const ArtistRegisteration = () => {
   console.log(currentAccount)
   return (
     <>
-      <Navbar />
       <Section>
+      <Navbar />
+
         <Container2 className="text-2xl font-extrabold">Artist Registeration</Container2>
         {(currentAccount && !artistData.name ) ? (
           <Container>

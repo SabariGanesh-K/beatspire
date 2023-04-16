@@ -59,9 +59,11 @@ export const ArtistProfile = () => {
   const { currentAccount,connectWallet } = useContext(BlockchainConfig);
   return (
     <>
-      <Navbar />
       <Section>
+      <Navbar />
+
         <Container2 className="text-2xl font-extrabold">Artist  Profile</Container2>
+
         <br/><br/><br/>
         <br/><br/><br/>
         {(currentAccount ) ? <>

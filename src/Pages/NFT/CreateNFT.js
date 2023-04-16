@@ -99,12 +99,15 @@ const CreateNFT = () => {
 
   return (
     <>
-      <Navbar />
-
+<div className='bg-[#99FFE3]'>
+<Navbar />
+</div>
 
       <Body className="flex justify-center sm:px-4 p-12">
+        
         {/* <div className='bg-red'>Hi</div> */}
         <div className="w-3/5 md:w-full">
+          
           <h1 className="font-poppins  dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-extrabold ml-4 sm:mb-4">
             Create New NFT
           </h1>
