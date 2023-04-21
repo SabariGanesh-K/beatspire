@@ -5,7 +5,8 @@ import { ArtistRegisteration } from './Artist/ArtistRegisteration';
 import Landing from './Landing/Landing';
 import CreateNFT from './NFT/CreateNFT';
 import ListedNFTs from './NFT/ListedNFTs';
-
+import YourNFTs from './NFT/YourNFT';
+import ExploreNFTs from './NFT/ExploreNFTs'
 export const Main = () => {
   return (
     <div>
@@ -14,9 +15,11 @@ export const Main = () => {
             <Route path="/" element={<Landing />} />
 
           <Route path = "/create" element={<CreateNFT/>}/>
-            <Route path = '/market' element = {<ListedNFTs/>}/>
+            <Route path = '/market' element = {<ExploreNFTs/>}/>
             <Route path = '/regartist' element = {<ArtistRegisteration/>}/>
             <Route path = '/artist' element = {<ArtistProfile/>}/>
+    <Route path = "/owned" element = {<YourNFTs/>}/>
+    <Route path = "/listed" element = {<ListedNFTs/>}/>
 
             
           </Routes>

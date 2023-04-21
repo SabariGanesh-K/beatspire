@@ -65,23 +65,7 @@ const NFTCard = ({ nft, onProfilePage }) => {
           </div>
           <div className="mt-1 minlg:mt-3 flexBetween flex-row" />
         </div>
-        <div className="flex flex-row sm:flex-col mt-10">
-          {currentAccount === nft.seller.toLowerCase()
-            ? (
-              <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-base border border-gray p-2">
-                You cannot buy your own NFT
-              </p>
-            )
-            
-              : (
-                <Button
-                  btnName={`Buy for ${nft.price} ${nftCurrency}`}
-                  btnType="primary"
-                  classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
-                  onClick={() =>  setPaymentModal(true)}
-                >PURCHASE</Button>
-              )}
-        </div>
+ 
         {paymentModal
       && (
       <Modal

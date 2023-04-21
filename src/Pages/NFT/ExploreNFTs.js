@@ -7,17 +7,17 @@ import Navbar from "../Landing/components/Navbar";
 import Loader from "./components/Loader";
 import NFTCard from "./components/NFTCard";
 
-const ListedNFTs = () => {
+const ExploreNFTs = () => {
   const [nfts, setNfts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [Loading, setLoading] = useState(true);
   const [OriginalNFTs, setOriginalNFTs] = useState([])
-  const { fetchMyNFTsOrListedNFTs } = useContext(BlockchainConfig);
+  const { fetchMyNFTsOrListedNFTs,fetchNFTs } = useContext(BlockchainConfig);
   const { getMoodDatas } = useContext(FirebaseConfig);
   const [filteredNfts, setFilteredNfts] = useState(nfts);
   const [moodSelected, setMoodSelected] = useState("");
   const filterNfts = async (mood) => {
     setMoodSelected(mood);
-    setIsLoading(true);
+    setLoading(true);
     let temp = [];
     if(mood==='all'){
       setFilteredNfts(OriginalNFTs)
@@ -40,18 +40,18 @@ const ListedNFTs = () => {
     setFilteredNfts(temp);
   };
     
-    setIsLoading(false);
+    setLoading(false);
   };
   useEffect(() => {
-    fetchMyNFTsOrListedNFTs("fetchItemsListed").then((items) => {
+    fetchNFTs(setLoading).then((items) => {
       setNfts(items);
       setFilteredNfts(items);
-      setIsLoading(false);
+      setLoading(false);
       setOriginalNFTs(items)
     });
   }, []);
 
-  if (isLoading) {
+  if (Loading) {
     return (
       <div className="flexStart min-h-screen">
         <Loader />
@@ -60,7 +60,7 @@ const ListedNFTs = () => {
   }
 
   return (
-    <>
+    <div className="bg-[#">
       <Navbar />
 
       <div className="flex justify-center sm:px-4 p-12 min-h-screen">
@@ -121,7 +121,7 @@ const ListedNFTs = () => {
           </div>
 
           <div className="mt-4">
-            {!isLoading && filteredNfts.length === 0 ? (
+            {!Loading && filteredNfts.length === 0 ? (
               <div className="flexCenter sm:p-4 p-16 ">
                 <h1 className="font-poppins dark:text-white text-nft-black-1 text-3xl font-extrabold">
                   No NFTs Listed for Sale
@@ -144,8 +144,8 @@ const ListedNFTs = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default ListedNFTs;
+export default ExploreNFTs;

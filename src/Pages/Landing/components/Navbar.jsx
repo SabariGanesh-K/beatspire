@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { BlockchainConfig } from '../../../BackendConfig/BlockchainConfig'
+import { FirebaseConfig } from '../../../BackendConfig/FirebaseConfig'
 const Section = styled.div`
 display: flex;
 justify-content: center;
@@ -76,6 +77,7 @@ const Button = styled.button`
 
 const Navbar = () => {
   const { connectWallet, currentAccount } = useContext(BlockchainConfig);
+  const { artistData } = useContext(FirebaseConfig);
 
   return (
     <Section>
@@ -84,16 +86,18 @@ const Navbar = () => {
         <a href='/home'>   <Logo src="./beatspire-logo.svg" /> </a>
           <List>
         <a href='/home'>  <ListItem>Home</ListItem></a>  
-        <a href='/market'> <ListItem>Music</ListItem></a>
+        <a href='/market'> <ListItem>Musics</ListItem></a>
         <a href='/artist'>   <ListItem>Artists</ListItem></a>
         <a href='/market'>   <ListItem>Collections</ListItem></a>
+        {/* <a href='/listed'>   <ListItem>Listed NFT</ListItem></a> */}
+
             {/* <ListItem>Social Good</ListItem> */}
           </List>
         </Links>
         <Icons>
        { currentAccount ? (
     <div className="flexCenter">
-      <Button>Connected</Button>
+      <Button>  Connected</Button>
     </div>
   ) : (
     <Button
@@ -101,7 +105,10 @@ const Navbar = () => {
       handleClick={connectWallet}
     >Connect Wallet</Button>
   )}
-          <Button>Explore</Button>
+ <a href='/owned'>    <Button>Your NFTs</Button> </a>  
+<a href='/listed'>    <Button>Listed NFTs</Button> </a>  
+  
+
         </Icons>
       </Container>
     </Section>
