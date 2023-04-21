@@ -69,7 +69,7 @@ const YourNFTs = () => {
         {(!isLoading && filteredNfts.length === 0) ? (<div className="flexCenter sm:p-4 p-16 ">
         <h1 className="font-poppins dark:text-white text-nft-black-1 text-3xl font-extrabold">No NFTs owned yet</h1>
       </div>):
-          <h2 className="font-poppins dark:text-white text-nft-black-1 text-2xl font-semibold mt-2 ml-4 sm:ml-2">NFTs listed for sale</h2>
+          <h2 className="font-poppins dark:text-white text-nft-black-1 text-2xl font-semibold mt-2 ml-4 sm:ml-2">NFTs you own</h2>
       }
       
           <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
