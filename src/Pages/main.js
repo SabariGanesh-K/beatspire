@@ -7,6 +7,7 @@ import CreateNFT from './NFT/CreateNFT';
 import ListedNFTs from './NFT/ListedNFTs';
 import YourNFTs from './NFT/YourNFT';
 import ExploreNFTs from './NFT/ExploreNFTs'
+import { Admin } from './Admin/Admin';
 export const Main = () => {
   return (
     <div>
@@ -20,6 +21,8 @@ export const Main = () => {
             <Route path = '/artist' element = {<ArtistProfile/>}/>
     <Route path = "/owned" element = {<YourNFTs/>}/>
     <Route path = "/listed" element = {<ListedNFTs/>}/>
+    <Route path = "/admin" element = {<Admin/>}/>
+
 
             
           </Routes>

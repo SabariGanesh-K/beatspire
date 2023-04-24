@@ -60,7 +60,8 @@ const ListedNFTs = () => {
   }
 
   return (
-    <>
+    < div className="min-h-screen bg-[#99FFE3]">
+
       <Navbar />
 
       <div className="flex justify-center sm:px-4 p-12 min-h-screen">
@@ -144,7 +145,7 @@ const ListedNFTs = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -48,7 +48,7 @@ const NFTCard = ({ nft, onProfilePage }) => {
   // console.log(img)
   return (
    
-      <div className="flex-1 min-w-215 max-w-max xs:max-w-none sm:w-full sm:min-w-155 minmd:min-w-256 minlg:min-w-327 dark:bg-nft-black-3 bg-white rounded-2xl p-4 m-4 minlg:m-8 sm:my-2 sm:mx-2 cursor-pointer shadow-md">
+      <div className=" bg-[#540072]  flex-1 min-w-215 max-w-max xs:max-w-none sm:w-full sm:min-w-155 minmd:min-w-256 minlg:min-w-327 dark:bg-nft-black-3 bg-white rounded-2xl p-4 m-4 minlg:m-8 sm:my-2 sm:mx-2 cursor-pointer shadow-md">
         <div className="relative w-full h-52 sm:h-36 xs:h-56 minmd:h-60 minlg:h-300 rounded-2xl overflow-hidden">
         <audio autoPlay = {false} controls>
       {/* <source   src = "https://ipfs.io/ipfs/bafybeid5gljppqk6ti3eb2x7mbvgjghafe4xyugabapb7yyiis2bnhnkzq/y2mate.com%20-%20Sickick%20Infected%20Ringtone%20%20New%20Ringtone%202022%20%20Attitude%20BGM%20Ringtone%20%20Ringtones%20Addict%20.mp3"  type="audio/mpeg" /> */}
@@ -58,10 +58,10 @@ const NFTCard = ({ nft, onProfilePage }) => {
     </audio>
         </div>
         <div className="mt-3 flex flex-col">
-          <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-sm minlg:text-xl">{nft.name}</p>
+          <p className="font-poppins  text-white font-semibold text-sm minlg:text-xl">{nft.name}</p>
           <div className="flexBetween mt-1 minlg:mt-3 flex-row xs:flex-col xs:items-start xs:mt-3">
-            <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">{nft.price} <span className="font-normal"> {nftCurrency}</span></p>
-            <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">{shortenAddress(onProfilePage ? nft.owner : nft.seller)}</p>
+            <p className="font-poppins  text-white font-semibold text-xs minlg:text-lg">{nft.price} <span className="font-normal"> {nftCurrency}</span></p>
+            <p className="font-poppins  text-white font-semibold text-xs minlg:text-lg">{shortenAddress(onProfilePage ? nft.owner : nft.seller)}</p>
           </div>
           <div className="mt-1 minlg:mt-3 flexBetween flex-row" />
         </div>
@@ -74,12 +74,13 @@ const NFTCard = ({ nft, onProfilePage }) => {
             )
             
               : (
-                <Button
+                <div
+                className='bg-[#00FFBA] p-2 align-center text-center'
                   btnName={`Buy for ${nft.price} ${nftCurrency}`}
                   btnType="primary"
                   classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
                   onClick={() =>  setPaymentModal(true)}
-                >PURCHASE</Button>
+                >PURCHASE 🪙🎧</div>
               )}
         </div>
         {paymentModal

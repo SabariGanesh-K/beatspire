@@ -4,6 +4,7 @@ import { BlockchainConfig } from "../../BackendConfig/BlockchainConfig";
 import { FirebaseConfig } from "../../BackendConfig/FirebaseConfig";
 import Navbar from "../Landing/components/Navbar";
 import styled from "styled-components";
+import { FileUpload } from "./components/FileUpload";
 
 const ButCon = styled.button`
   background-color: #00C594;
@@ -28,7 +29,7 @@ const Container = styled.div`
 background-color: #156F65;
 font-family: 'Poppins', sans-serif;
 padding: 1rem;
-height: 80vh;
+// height: 80vh;
 display: flex;
 flex-direction: column;
 border-radius: 20px;
@@ -37,7 +38,7 @@ align-items: center;
 margin-bottom: 5rem;`
 
 const Section = styled.div`
-height: 100vh;
+// height: 100vh;
 width: 100%;
 scroll-snap-align: center;
 display: flex;
@@ -87,13 +88,14 @@ export const ArtistRegisteration = () => {
   const [audience, setAudience] = useState("");
   const [spotify, setSpotify] = useState("");
   const [twitter, setTwitter] = useState("");
+  const [addingProfileImage, setAddingProfileImage] = useState("");
 
   const [loading, setloading] = useState("");
   const { addArtistData,artistData } = useContext(FirebaseConfig);
   const { currentAccount,connectWallet } = useContext(BlockchainConfig);
   const handleSubmission = async () => {
     setloading(true);
-    await addArtistData(name, mail, audience, spotify, twitter);
+    await addArtistData(name, mail, audience, spotify, twitter,addingProfileImage);
     setName('')
     setMail('')
     setAudience(0)
@@ -103,7 +105,7 @@ export const ArtistRegisteration = () => {
   };
   console.log(currentAccount)
   return (
-    <>
+    < div className="min-h-screen bg-[#99FFE3]">
       <Section>
       <Navbar />
 
@@ -160,7 +162,9 @@ export const ArtistRegisteration = () => {
               multiline
               variant="standard"
             /></Span>
-            {name && mail && audience && spotify && twitter &&!loading ? (
+          <FileUpload onChange={(file) => setAddingProfileImage(file[0])} />
+
+            {name && mail && audience && spotify && twitter &&addingProfileImage &&!loading ? (
               <ButCom
                 className="bg-black text-white font-bold text-2xl"
                 onClick={handleSubmission}
@@ -178,6 +182,6 @@ export const ArtistRegisteration = () => {
           </Container>
         ) : (artistData.name ?<a href = "/artist"> <ButCom>USER ALREADY REGISTERED</ButCom></a>: <ButCom onClick={connectWallet}>Connect wallet to proceed</ButCom>  )     }
       </Section>
-    </>
+    </div>
   );
 };

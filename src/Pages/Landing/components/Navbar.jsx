@@ -105,9 +105,9 @@ const Navbar = () => {
       handleClick={connectWallet}
     >Connect Wallet</Button>
   )}
- <a href='/owned'>    <Button>Your NFTs</Button> </a>  
-<a href='/listed'>    <Button>Listed NFTs</Button> </a>  
-  
+ {  currentAccount && <a href='/owned'>    <Button>Your NFTs</Button> </a>  }
+{currentAccount && <a href='/listed'>    <Button>Listed NFTs</Button> </a>  }
+  {!currentAccount  && <a href = "/market"><Button>Explore </Button></a>  }
 
         </Icons>
       </Container>

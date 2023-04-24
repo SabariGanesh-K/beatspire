@@ -60,7 +60,8 @@ const ExploreNFTs = () => {
   }
 
   return (
-    <div className="bg-[#">
+    < div className="min-h-screen bg-[#99FFE3]">
+
       <Navbar />
 
       <div className="flex justify-center sm:px-4 p-12 min-h-screen">

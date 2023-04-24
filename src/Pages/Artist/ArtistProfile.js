@@ -58,7 +58,8 @@ export const ArtistProfile = () => {
   const { artistData } = useContext(FirebaseConfig);
   const { currentAccount,connectWallet } = useContext(BlockchainConfig);
   return (
-    <>
+    < div className="min-h-screen bg-[#99FFE3]">
+
       <Section>
       <Navbar />
 
@@ -66,24 +67,24 @@ export const ArtistProfile = () => {
 
         <br/><br/><br/>
         <br/><br/><br/>
-        {(currentAccount ) ? <>
-          {(artistData.name) ? <>
+        {    (currentAccount ) ? <>
+          {(artistData.name  && artistData.verified) ? <>
             <a href="/create"> <Span className="text-2xl m-5">+ Upload your NFT </Span></a><br />
 
             <Container className="flex flex-col rounded-b-lg shadow-md">
-              <Span className="text-2xl m-5">Name: {artistData.name} </Span><br />
-              <Span className="text-2xl m-5">Mail: {artistData.mail} </Span><br />
-              <Span className="text-2xl m-5">wallet: <br />{artistData.wallet} </Span><br />
-              <Span className="text-2xl m-5">audience: {artistData.audience} </Span><br />
-              <Span className="text-2xl m-5">Twitter: {artistData.twitter} </Span>
+              <Span className="text-2xl ">Name: {artistData.name} </Span><br />
+              <Span className="text-2xl  ">Mail: {artistData.mail} </Span><br />
+              <Span className="text-2xl  ">wallet: <br />{artistData.wallet} </Span><br />
+              <Span className="text-2xl  ">audience: {artistData.audience} </Span><br />
+              <Span className="text-2xl  ">Twitter: {artistData.twitter} </Span>
 
             </Container>
 
-          </> : <a href = "regartist"> <Span> Register as a artist to proceed </Span></a>}
+          </> :   (artistData.name  && !artistData.verified)?<><Span> You have not been verified wait. Kindly wait till you get verified </Span></> :  <a href = "regartist"> <Span> Register as a artist to proceed </Span></a>}
 
 
         </> : <Span onClick={connectWallet}>Connect your wallet to proceed</Span>}
       </Section>
-    </>
+    </div>
   )
 }
