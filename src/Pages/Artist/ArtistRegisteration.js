@@ -162,6 +162,15 @@ export const ArtistRegisteration = () => {
               multiline
               variant="standard"
             /></Span>
+  <div className="text-2xl font-bold text-center">Send the Reg Fees of $1 to the following account 🍷</div>
+
+            <div className="border border-2 border-black p-2">
+              <div>Phone number:- +91 9499014930</div>
+              <div>UPI ID :- sabari@oksbi </div>
+            </div>
+<br/><br/>
+<div className="text-2xl font-bold text-center">Upload the payment screenshot for verification</div>
+
           <FileUpload onChange={(file) => setAddingProfileImage(file[0])} />
 
             {name && mail && audience && spotify && twitter &&addingProfileImage &&!loading ? (
@@ -176,7 +185,7 @@ export const ArtistRegisteration = () => {
                 className="font-bold text-2xl cursor-not-allowed"
                 // onClick={handleSubmission}
               >
-                Submit
+                Submit KYC
               </ButCon>
             )}
           </Container>
