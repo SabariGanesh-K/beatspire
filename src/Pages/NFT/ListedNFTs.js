@@ -4,7 +4,7 @@ import { BlockchainConfig } from "../../BackendConfig/BlockchainConfig";
 import { FirebaseConfig } from "../../BackendConfig/FirebaseConfig";
 import Navbar from "../Landing/components/Navbar";
 
-import Loader from "./components/Loader";
+import {Loader} from "./components/Loader";
 import NFTCard from "./components/NFTCard";
 
 const ListedNFTs = () => {

@@ -4,7 +4,7 @@ import { BlockchainConfig } from "../../BackendConfig/BlockchainConfig";
 import { FirebaseConfig } from "../../BackendConfig/FirebaseConfig";
 import Navbar from "../Landing/components/Navbar";
 
-import Loader from "./components/Loader";
+import { Loader } from "./components/Loader";
 import NFTCard from "./components/NFTCard";
 
 const ExploreNFTs = () => {
@@ -51,13 +51,13 @@ const ExploreNFTs = () => {
     });
   }, []);
 
-  if (Loading) {
-    return (
-      <div className="flexStart min-h-screen">
-        <Loader />
-      </div>
-    );
-  }
+  // if (Loading) {
+  //   return (
+  //     <div className="flexStart min-h-screen">
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
 
   return (
     < div className="min-h-screen bg-[#99FFE3]">
@@ -66,8 +66,8 @@ const ExploreNFTs = () => {
 
       <div className="flex justify-center sm:px-4 p-12 min-h-screen">
         <div className="w-full minmd:w-4/5">
-          <div className="flex flex-row justify-evenly">
-            {moodSelected === "all" ? (
+        {  <div className="flex flex-row justify-evenly">
+            {moodSelected === "all"  && !Loading ? (
               <button className="bg-green-500 border-2 border border-green-800 p-2 font-bold text-white rounded-xl mx-3">
                 All{" "}
               </button>
@@ -119,7 +119,7 @@ const ExploreNFTs = () => {
             )}
             {/* <button className='bg-green-800 p-2 font-bold text-white rounded-xl mx-3' onClick={()=>filterNfts("angry")}> Angry 😡</button> */}
             {/* <button className='bg-green-800 p-2 font-bold text-white rounded-xl mx-3' onClick={()=>filterNfts("sad")}> sad 😖</button> */}
-          </div>
+          </div>}
 
           <div className="mt-4">
             {!Loading && filteredNfts.length === 0 ? (
@@ -135,12 +135,13 @@ const ExploreNFTs = () => {
             )}
 
             <div className="mt-3 w-full flex flex-wrap justify-center md:justify-center">
-              {filteredNfts.map((nft) => (
+              {!Loading && filteredNfts.map((nft) => (
                 <>
                   {" "}
                   <NFTCard key={nft.tokenId} nft={nft} />{" "}
                 </>
               ))}
+              {Loading && <Loader/> }
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { BlockchainConfig } from '../../BackendConfig/BlockchainConfig';
 import { FirebaseConfig } from '../../BackendConfig/FirebaseConfig';
 import Navbar from '../Landing/components/Navbar';
 
-import Loader from './components/Loader';
+import {Loader} from './components/Loader';
 import NFTCard from './components/NFTCard';
 
 const YourNFTs = () => {
@@ -54,7 +54,8 @@ const YourNFTs = () => {
 
 
   return (
-    <>
+    < div className="min-h-screen bg-[#99FFE3]">
+    
     <Navbar/>
  
     <div className="flex justify-center sm:px-4 p-12 min-h-screen">
@@ -80,7 +81,7 @@ const YourNFTs = () => {
         </div>
       </div>
     </div>
-    </>
+    </div>
   );
 };
 
