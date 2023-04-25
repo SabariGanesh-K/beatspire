@@ -102,7 +102,7 @@ const Navbar = () => {
   ) : (
     <Button
     
-      handleClick={connectWallet}
+      onClick={connectWallet}
     >Connect Wallet</Button>
   )}
  {  currentAccount && <a href='/owned'>    <Button>Your NFTs</Button> </a>  }
